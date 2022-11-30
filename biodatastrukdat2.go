@@ -1,4 +1,3 @@
-/** Created By Komodo **/
 package main
 
 import (
