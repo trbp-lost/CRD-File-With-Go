@@ -1,3 +1,4 @@
+/** Created By Komodo **/
 package main
 
 import (
@@ -28,7 +29,7 @@ func createFile() {
 		return
 	}
 	fmt.Printf("\nFile Name     : %s\n", stats.Name())
-	fmt.Printf("Time Created : %v\n", stats.ModTime().Format("15:04:05"))
+	fmt.Printf("Time Created    : %v\n", stats.ModTime().Format("15:04:05"))
 }
 
 func inputData(filename string) {
@@ -63,10 +64,12 @@ func inputData(filename string) {
 
 	total = (float32(uts) + float32(uas)) / 2
 
-	fmt.Printf("Nama saya %s \n", nama)
-	fmt.Printf("NPM saya %s \n", npm)
-	fmt.Printf("Saya Kelas %s \n", kelas)
-	fmt.Printf("Nilai Rata-rata %3.2f \n", total)
+	fmt.Printf("\nNama yang dimasukkan            : %s \n", nama)
+	fmt.Printf("NPM yang dimasukkan             : %s \n", npm)
+	fmt.Printf("Kelas yang dimasukkan           : %s \n", kelas)
+	fmt.Printf("Nilai UTS yang dimasukkan       : %d \n", uts)
+	fmt.Printf("Nilai UAS yang dimasukkan       : %d \n", uas)
+	fmt.Printf("Nilai Rata-rata yang didapatkan : %3.2f \n", total)
 
 	fileDataAPPENDS, err := os.OpenFile(filename+".txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
@@ -74,7 +77,7 @@ func inputData(filename string) {
 	}
 	defer fileDataAPPENDS.Close()
 
-	data := "\n" + nama + "\t" + npm + "\t" + kelas + "\t" + fmt.Sprintf("%v", uts) + "\t" + fmt.Sprintf("%v", uas) + "\t" + fmt.Sprintf("%v", total)
+	data := nama + "\t" + npm + "\t" + kelas + "\t" + fmt.Sprintf("%v", uts) + "\t" + fmt.Sprintf("%v", uas) + "\t" + fmt.Sprintf("%v", total) + "\n"
 	if _, err = fileDataAPPENDS.WriteString(data); err != nil {
 		panic(err)
 		fmt.Println(err.Error())
@@ -213,8 +216,8 @@ func menu() {
 		deleteFile(fileName)
 	default:
 		fmt.Println("invalid input")
-		menu()
 	}
+	menu()
 }
 
 func main() {
