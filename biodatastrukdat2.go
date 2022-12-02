@@ -111,67 +111,6 @@ func readFile(filename string) {
 	fmt.Println(string(fileContents))
 }
 
-func deleteDataByContent(filename string) {
-	textLines := ""
-
-	f, err := os.Open(filename + ".txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	var bs []byte
-	buf := bytes.NewBuffer(bs)
-
-	fmt.Println("(contoh: komodo     00003       2iRNG    100    100)")
-	fmt.Print("Masukkan baris yang ingin dihapus : ")
-	fmt.Scan(&textLines)
-
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		if scanner.Text() != textLines {
-			_, err := buf.Write(scanner.Bytes())
-			if err != nil {
-				log.Fatal(err)
-			}
-			_, err = buf.WriteString("\n")
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-	}
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	err = ioutil.WriteFile(filename+".txt", buf.Bytes(), 0644)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func deleteFile(filename string) {
-	var pil string
-	for i := 0; i > 1; i-- {
-		fmt.Printf("Apakah anda yakin ingin menghapus %s.txt : ", filename)
-		fmt.Scan(&pil)
-		if strings.ToLower(pil) != "y" {
-			fmt.Println("Konfirmasi hapus file gagal")
-			menu()
-		}
-	}
-	_, err := os.Stat(filename + ".txt")
-	if os.IsNotExist(err) {
-		fmt.Println(err)
-	}
-
-	err = os.Remove(filename + ".txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("File ", filename, ".txt telah dihapus")
-}
-
 func menu() {
 	var pil int16
 	var fileName string
